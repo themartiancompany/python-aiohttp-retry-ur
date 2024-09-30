@@ -16,6 +16,7 @@ pkgbase = python-aiohttp-retry
 	checkdepends = python-pytest-cov
 	checkdepends = python-pytest-xdist
 	makedepends = python-setuptools
+	makedepends = python-wheel
 	makedepends = python-build
 	makedepends = python-installer
 	depends = python

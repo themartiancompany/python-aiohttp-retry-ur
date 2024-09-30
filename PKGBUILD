@@ -34,7 +34,7 @@ depends=(
 )
 makedepends=(
   "${_py}-setuptools"
-  # "${_py}-wheel"
+  "${_py}-wheel"
 )
 [[ "${_pep517}" == true ]] && \
   makedepends+=(
