@@ -116,7 +116,7 @@ package() {
     "${_py}" \
       -m \
         installer \
-      --destdir="$terdir" \
+      --destdir="${pkgdir}" \
       dist/*.whl
   fi
 }
