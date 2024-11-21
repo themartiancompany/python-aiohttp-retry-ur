@@ -39,7 +39,7 @@ license=(
 )
 depends=(
   "${_py}>=${_pymajver}"
-  "${_py}<${_pymajver}"
+  "${_py}<${_pynextver}"
   "${_py}-aiohttp"
   "${_py}-yarl"
 )
