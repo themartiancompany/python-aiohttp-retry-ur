@@ -50,7 +50,11 @@ if [[ ! -v "_offline" ]]; then
   _offline="false"
 fi
 if [[ ! -v "_git_service" ]]; then
-  _git_service="gitlab"
+  if [[ "${_evmfs}" = "true" ]]; then
+    _git_service="gitlab"
+  elif [[ "${_evmfs}" = "false" ]]; then
+    _git_service="github"
+  fi
 fi
 if [[ ! -v "_archive_format" ]]; then
   if [[ "${_git}" == "true" ]]; then
