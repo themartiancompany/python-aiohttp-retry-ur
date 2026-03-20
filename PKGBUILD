@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0
 
-
 #    ----------------------------------------------------------------------
 #    Copyright © 2024, 2025, 2026  Pellegrino Prevete
 #
@@ -89,7 +88,7 @@ pkgname="${_py}-${_pkg}"
 pkgver=2.8.3
 _bundle_commit="1a3bc19e15de202755e5cdf67c1c011aef2926c9"
 _commit="c5e6bb74b5373650527bc1f5c29ba5ad145dea48"
-pkgrel=8
+pkgrel=9
 pkgdesc='Simple retry client for aiohttp.'
 _http="https://${_git_service}.com"
 if [[ "${_git_service}" == "github" ]]; then
@@ -292,8 +291,13 @@ build() {
     --wheel
     --no-isolation
   )
-  cd \
-    "${_tarname}"
+  if [[ "${_git}" == "false" ]]; then
+    cd \
+      "${_pkg}-${_tag}"
+  elif [[ "${_git}" == "true" ]]; then
+    cd \
+      "${_tarname}"
+  fi
   export \
     LANG="en_US.UTF-8"
   if [[ "${_pep517}" == 'true' ]]; then
@@ -310,8 +314,13 @@ build() {
 }
 
 check() {
-  cd \
-    "${_tarname}"
+  if [[ "${_git}" == "false" ]]; then
+    cd \
+      "${_pkg}-${_tag}"
+  elif [[ "${_git}" == "true" ]]; then
+    cd \
+      "${_tarname}"
+  fi
   "${_py}" \
     -m \
       venv \
@@ -340,8 +349,13 @@ package() {
   _installer_opts+=(
     --destdir="${pkgdir}"
   )
-  cd \
-    "${_tarname}"
+  if [[ "${_git}" == "false" ]]; then
+    cd \
+      "${_pkg}-${_tag}"
+  elif [[ "${_git}" == "true" ]]; then
+    cd \
+      "${_tarname}"
+  fi
   if [[ "${_pep517}" == 'false' ]]; then
     LANG="en_US.UTF-8" \
     "${_py}" \
