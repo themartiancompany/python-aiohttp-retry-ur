@@ -91,7 +91,7 @@ pkgname=(
 pkgver=2.8.3
 _bundle_commit="1a3bc19e15de202755e5cdf67c1c011aef2926c9"
 _commit="c5e6bb74b5373650527bc1f5c29ba5ad145dea48"
-pkgrel=10
+pkgrel=11
 pkgdesc='Simple retry client for aiohttp.'
 _http="https://${_git_service}.com"
 if [[ "${_git_service}" == "github" ]]; then
