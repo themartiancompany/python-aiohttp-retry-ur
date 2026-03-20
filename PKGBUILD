@@ -1,7 +1,8 @@
 # SPDX-License-Identifier: AGPL-3.0
 
+
 #    ----------------------------------------------------------------------
-#    Copyright © 2024, 2025  Pellegrino Prevete
+#    Copyright © 2024, 2025, 2026  Pellegrino Prevete
 #
 #    All rights reserved
 #    ----------------------------------------------------------------------
@@ -28,6 +29,9 @@
 #     <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
 #     <tallero@0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c>
 
+_os="$(
+  uname \
+    -o)"
 _evmfs_available="$(
   command \
     -v \
@@ -40,11 +44,8 @@ if [[ ! -v "_evmfs" ]]; then
     _evmfs="false"
   fi
 fi
-_os="$(
-  uname \
-    -o)"
 if [[ ! -v "_git" ]]; then
-  _git="true"
+  _git="${_evmfs}"
 fi
 if [[ ! -v "_offline" ]]; then
   _offline="false"
@@ -88,7 +89,7 @@ pkgname="${_py}-${_pkg}"
 pkgver=2.8.3
 _bundle_commit="1a3bc19e15de202755e5cdf67c1c011aef2926c9"
 _commit="c5e6bb74b5373650527bc1f5c29ba5ad145dea48"
-pkgrel=7
+pkgrel=8
 pkgdesc='Simple retry client for aiohttp.'
 _http="https://${_git_service}.com"
 if [[ "${_git_service}" == "github" ]]; then
@@ -154,25 +155,51 @@ if [[ "${_offline}" == "true" ]]; then
 fi
 _gitlab_sum="SKIP"
 _gitlab_sig_sum="SKIP"
-_github_sum='SKIP'
-_github_sig_sum="SKIP"
+_github_sum="475268ad0126d8ff6513e7b9e4bca307a6b78932ec4e81d33e48188e6a9fec0a"
+_github_sig_sum="721b09fd1017ea9fa41a9774d8b11ffcbc51b5936320d0b9dc70cc52db9c7385"
 _bundle_sum="184c34e6a04c24da8928f6db2a9aef1fa6c3773ac3a34cd19977360e819b4fb9"
 _bundle_sig_sum="52e0b723c1cc92eb13b10988ad4d1adc9c042f68ae8b3e159593e0e69270c850"
 if [[ "${_evmfs}" == "true" ]]; then
   if [[ "${_git}" == "true" ]]; then
     _sum="${_bundle_sum}"
     _sig_sum="${_bundle_sig_sum}"
+    # Tallero
+    _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
+  elif [[ "${_git}" == "false" ]]; then
+    if [[ "${_git_service}" == "github" ]]; then
+      _sum="${_github_sum}"
+      _sig_sum="${_github_sig_sum}"
+      # Dvorak
+      _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+      # Truocolo
+      _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
+    elif [[ "${_git_service}" == "gitlab" ]]; then
+      _sum="${_gitlab_sum}"
+      _sig_sum="${_gitlab_sig_sum}"
+      # Tallero
+      _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
+    fi
   fi
 elif [[ "${_evmfs}" == "false" ]]; then
   if [[ "${_git}" == "true" ]]; then
     _sum="SKIP"
     _sig_sum="SKIP"
+  elif [[ "${_git}" == "false" ]]; then
+    if [[ "${_git_service}" == "github" ]]; then
+      _sum="${_github_sum}"
+      _sig_sum="${_github_sig_sum}"
+      # Truocolo
+      _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
+    elif [[ "${_git_service}" == "gitlab" ]]; then
+      _sum="${_gitlab_sum}"
+      _sig_sum="${_gitlab_sig_sum}"
+      # Dvorak
+      _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+      # Tallero
+      _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
+    fi
   fi
 fi
-# Dvorak
-_evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
-# Tallero
-_evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
 _evmfs_network="100"
 _evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
 _evmfs_dir="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}"
