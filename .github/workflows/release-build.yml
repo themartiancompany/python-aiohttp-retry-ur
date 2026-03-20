@@ -193,6 +193,10 @@ jobs:
           /entrypoint.sh \
             pip \
               install \
+                "setuptools"
+          /entrypoint.sh \
+            pip \
+              install \
                 "flit-core"
       # - name:
       #     Installs Rust.
@@ -1627,7 +1631,7 @@ jobs:
                 "pkgbase")"
           su \
             -c \
-              "cd ${PWD} && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
+              "cd ${PWD} && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck && ls -lsh" - \
             "user"
       # - name:
       #     Installs the package.
@@ -2167,6 +2171,10 @@ jobs:
             pip \
               install \
                 "installer"
+          /entrypoint.sh \
+            pip \
+              install \
+                "setuptools"
       - uses:
           actions/checkout@v3.3.0
       - name:
